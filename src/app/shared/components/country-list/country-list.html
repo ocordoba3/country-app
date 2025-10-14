@@ -16,7 +16,7 @@
       #searchInput
       type="search"
       class="grow"
-      placeholder="Search"
+      placeholder="Buscar país..."
       (change)="handleChange($event)"
     />
   </label>
@@ -56,27 +56,34 @@
   } @if(!isLoading() && countries().length > 0){
   <article class="overflow-x-auto h-[70vh] overflow-y-auto">
     <table class="table">
-      <!-- head -->
       <thead class="sticky top-0 bg-gray-800 z-10">
         <tr>
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox" />
-            </label>
-          </th>
-          <th>Name</th>
-          <th>Region</th>
-          <th>Subregion</th>
+          <th></th>
+          <th>País</th>
+          <th>Región</th>
+          <th>Subregión</th>
           <th></th>
         </tr>
       </thead>
-      <tbody class="">
+
+      <tbody>
         @for (country of countries(); track country.name) {
         <tr>
           <th>
-            <label>
-              <input type="checkbox" class="checkbox" />
-            </label>
+            <div class="tooltip tooltip-right z-30" data-tip="Marcar como favorito">
+              <button class="btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m12 21l-8.8-8.3A5.6 5.6 0 1 1 12 6a5.6 5.6 0 1 1 8.9 6.6z"
+                  />
+                </svg>
+              </button>
+            </div>
           </th>
           <td>
             <div class="flex items-center gap-3">
@@ -96,7 +103,7 @@
           </td>
           <td>{{ country.subregion }}</td>
           <th>
-            <button class="btn btn-ghost btn-xs">Go to Details</button>
+            <button class="btn btn-ghost btn-xs">Ir a Detalles</button>
           </th>
         </tr>
         }

@@ -4,11 +4,10 @@ import {
   ElementRef,
   inject,
   input,
-  signal,
   viewChild,
   OnDestroy,
 } from '@angular/core';
-import { CountryResp, SearchKey } from '../../../search/interfaces/country-resp';
+import { SearchKey } from '../../../search/interfaces/country-resp';
 import { SearchService } from '../../../search/services/search-service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
