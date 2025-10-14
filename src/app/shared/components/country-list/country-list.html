@@ -23,12 +23,14 @@
 
   @if(countries().length === 0) {
   <article class="w-full h-full">
-    <div class="card bg-primary text-primary-content w-full lg:w-1/2 lg:mx-auto lg:my-24">
+    <div class="card text-primary-content w-full lg:w-1/2 lg:mx-auto lg:my-24">
       <div class="card-body">
-        <h2 class="card-title">Encuentra tu país favorito!</h2>
-        <p>Usa el buscador para encontrar información de cualquier país del mundo.</p>
+        <h2 class="text-primary text-center text-2xl">Encuentra tu país favorito!</h2>
+        <p class="text-primary text-center">
+          Usa el buscador para encontrar información de cualquier país del mundo.
+        </p>
         <div class="card-actions justify-center mt-4">
-          <button (click)="searchNow()" type="button" class="btn">Buscar ahora</button>
+          <button (click)="searchNow()" type="button" class="btn btn-primary">Buscar ahora</button>
         </div>
       </div>
     </div>
