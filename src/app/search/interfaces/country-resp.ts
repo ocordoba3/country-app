@@ -1,6 +1,6 @@
 export type SearchKey = 'name' | 'capital' | 'region';
 
-export interface Country {
+export interface CountryResp {
   name: Name;
   tld: string[];
   cca2: string;
@@ -38,40 +38,40 @@ export interface Country {
   postalCode: PostalCode;
 }
 
-export interface CapitalInfo {
+interface CapitalInfo {
   latlng: number[];
 }
 
-export interface Car {
+interface Car {
   signs: string[];
   side: string;
 }
 
-export interface CoatOfArms {
+interface CoatOfArms {
   png: string;
   svg: string;
 }
 
-export interface Currencies {
+interface Currencies {
   EUR: Eur;
 }
 
-export interface Eur {
+interface Eur {
   symbol: string;
   name: string;
 }
 
-export interface Demonyms {
+interface Demonyms {
   eng: Eng;
   fra: Eng;
 }
 
-export interface Eng {
+interface Eng {
   f: string;
   m: string;
 }
 
-export interface Flags {
+interface Flags {
   png: string;
   svg: string;
   alt: string;

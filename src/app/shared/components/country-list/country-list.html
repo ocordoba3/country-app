@@ -21,9 +21,13 @@
     />
   </label>
 
-  @if(countries().length === 0) {
-  <article class="w-full h-full">
-    <div class="card text-primary-content w-full lg:w-1/2 lg:mx-auto lg:my-24">
+  @if (isLoading()) {
+  <article class="w-full h-[70vh] flex place-content-center">
+    <span class="loading loading-bars loading-xl"></span>
+  </article>
+  } @if(!isLoading() && countries().length === 0 && !hasError()) {
+  <article class="w-full h-[60vh] flex place-content-center flex-wrap">
+    <div class="card text-primary-content w-full h-fit lg:w-1/2 lg:mx-auto">
       <div class="card-body">
         <h2 class="text-primary text-center text-2xl">Encuentra tu país favorito!</h2>
         <p class="text-primary text-center">
@@ -35,11 +39,25 @@
       </div>
     </div>
   </article>
-  } @else {
-  <article class="overflow-x-auto">
+  }@if(!isLoading() && countries().length === 0 && hasError()) {
+  <article class="w-full h-[60vh] flex place-content-center flex-wrap">
+    <div class="card text-primary-content w-full h-fit lg:w-1/2 lg:mx-auto">
+      <div class="card-body">
+        <h2 class="text-primary text-center text-2xl">No hemos encontrado resultados</h2>
+        <p class="text-primary text-center">Prueba con otro término de búsqueda.</p>
+        <div class="card-actions justify-center mt-4">
+          <button (click)="searchNow()" type="button" class="btn btn-primary">
+            Volver a buscar
+          </button>
+        </div>
+      </div>
+    </div>
+  </article>
+  } @if(!isLoading() && countries().length > 0){
+  <article class="overflow-x-auto h-[70vh] overflow-y-auto">
     <table class="table">
       <!-- head -->
-      <thead>
+      <thead class="sticky top-0 bg-gray-800 z-10">
         <tr>
           <th>
             <label>
@@ -52,8 +70,8 @@
           <th></th>
         </tr>
       </thead>
-      <tbody>
-        @for (country of countries(); track country.idd) {
+      <tbody class="">
+        @for (country of countries(); track country.name) {
         <tr>
           <th>
             <label>
@@ -64,12 +82,12 @@
             <div class="flex items-center gap-3">
               <div class="avatar">
                 <div class="mask mask-squircle h-12 w-12">
-                  <img [src]="country.flags.svg" [alt]="country.name.common" />
+                  <img [src]="country.flags.svg" [alt]="country.name" />
                 </div>
               </div>
               <div>
-                <div class="font-bold">{{ country.name.common }}</div>
-                <div class="text-sm opacity-50">{{ country.fifa || 'N/A' }}</div>
+                <div class="font-bold">{{ country.name }}</div>
+                <div class="text-sm opacity-50">{{ country.code }}</div>
               </div>
             </div>
           </td>
@@ -83,16 +101,6 @@
         </tr>
         }
       </tbody>
-      <!-- foot -->
-      <tfoot>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Job</th>
-          <th>Favorite Color</th>
-          <th></th>
-        </tr>
-      </tfoot>
     </table>
   </article>
   }
