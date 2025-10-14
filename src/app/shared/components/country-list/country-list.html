@@ -1,0 +1,97 @@
+<section class="w-full h-full">
+  <label class="input w-full lg:w-1/2 my-8">
+    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        stroke-width="2.5"
+        fill="none"
+        stroke="currentColor"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path>
+      </g>
+    </svg>
+    <input
+      #searchInput
+      type="search"
+      class="grow"
+      placeholder="Search"
+      (change)="handleChange($event)"
+    />
+  </label>
+
+  @if(countries().length === 0) {
+  <article class="w-full h-full">
+    <div class="card bg-primary text-primary-content w-full lg:w-1/2 lg:mx-auto lg:my-24">
+      <div class="card-body">
+        <h2 class="card-title">Encuentra tu país favorito!</h2>
+        <p>Usa el buscador para encontrar información de cualquier país del mundo.</p>
+        <div class="card-actions justify-center mt-4">
+          <button (click)="searchNow()" type="button" class="btn">Buscar ahora</button>
+        </div>
+      </div>
+    </div>
+  </article>
+  } @else {
+  <article class="overflow-x-auto">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </th>
+          <th>Name</th>
+          <th>Region</th>
+          <th>Subregion</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (country of countries(); track country.idd) {
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </th>
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="mask mask-squircle h-12 w-12">
+                  <img [src]="country.flags.svg" [alt]="country.name.common" />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">{{ country.name.common }}</div>
+                <div class="text-sm opacity-50">{{ country.fifa || 'N/A' }}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            {{ country.region }}
+          </td>
+          <td>{{ country.subregion }}</td>
+          <th>
+            <button class="btn btn-ghost btn-xs">Go to Details</button>
+          </th>
+        </tr>
+        }
+      </tbody>
+      <!-- foot -->
+      <tfoot>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Job</th>
+          <th>Favorite Color</th>
+          <th></th>
+        </tr>
+      </tfoot>
+    </table>
+  </article>
+  }
+</section>
