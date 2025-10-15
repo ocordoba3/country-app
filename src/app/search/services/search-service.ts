@@ -29,9 +29,11 @@ export class SearchService {
       .subscribe({
         next: (countries) => {
           this.countries.set(countries);
+          this.hasError.set(false);
           this.isLoading.set(false);
         },
         error: () => {
+          this.countries.set([]);
           this.hasError.set(true);
           this.isLoading.set(false);
         },

@@ -1,8 +1,9 @@
 <ul class="menu menu-horizontal bg-gray-800 rounded-box w-full">
+  @if (isSearchPage() && !isDetailsPage()) {
   <li>
     <a
       [routerLink]="[paths.region]"
-      [routerLinkActive]="['bg-primary/80', 'font-bold']"
+      [routerLinkActive]="['bg-primary/80', 'font-bold', 'text-black']"
       [routerLinkActiveOptions]="{ exact: true }"
       class="tooltip"
       data-tip="Región"
@@ -26,7 +27,7 @@
   <li>
     <a
       [routerLink]="[paths.country]"
-      [routerLinkActive]="['bg-primary/80', 'font-bold']"
+      [routerLinkActive]="['bg-primary/80', 'font-bold', 'text-black']"
       [routerLinkActiveOptions]="{ exact: true }"
       class="tooltip"
       data-tip="País"
@@ -43,7 +44,7 @@
   <li>
     <a
       [routerLink]="[paths.capital]"
-      [routerLinkActive]="['bg-primary/80', 'font-bold']"
+      [routerLinkActive]="['bg-primary/80', 'font-bold', 'text-black']"
       [routerLinkActiveOptions]="{ exact: true }"
       class="tooltip"
       data-tip="Capital"
@@ -59,4 +60,18 @@
       <span class="hidden lg:block">Capital</span>
     </a>
   </li>
+  }@else if(isDetailsPage()) {
+  <li>
+    <a [routerLink]="['/', paths.search, paths.region]" class="bg-primary/80 font-bold text-black">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M11 18.75a.74.74 0 0 1-.53-.22l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 1.06L6.06 12l5.47 5.47a.75.75 0 0 1 0 1.06a.74.74 0 0 1-.53.22"
+        />
+        <path fill="currentColor" d="M19 12.75H5a.75.75 0 0 1 0-1.5h14a.75.75 0 0 1 0 1.5" />
+      </svg>
+      <span class="hidden lg:block">Volver</span>
+    </a>
+  </li>
+  }
 </ul>

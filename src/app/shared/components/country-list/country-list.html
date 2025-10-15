@@ -13,6 +13,7 @@
       </g>
     </svg>
     <input
+      [disabled]="isLoading()"
       #searchInput
       type="search"
       class="grow"
@@ -56,10 +57,11 @@
   } @if(!isLoading() && countries().length > 0){
   <article class="overflow-x-auto h-[70vh] overflow-y-auto">
     <table class="table">
-      <thead class="sticky top-0 bg-gray-800 z-10">
+      <thead class="sticky top-0 bg-gray-800 z-[2]">
         <tr>
-          <th></th>
+          <th class="hidden md:block"></th>
           <th>País</th>
+          <th>Capital</th>
           <th>Región</th>
           <th>Subregión</th>
           <th></th>
@@ -69,8 +71,8 @@
       <tbody>
         @for (country of countries(); track country.name) {
         <tr>
-          <th>
-            <div class="tooltip tooltip-right z-30" data-tip="Marcar como favorito">
+          <th class="hidden md:block">
+            <div class="tooltip tooltip-right z-[1]" data-tip="Marcar como favorito">
               <button class="btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path
@@ -93,17 +95,24 @@
                 </div>
               </div>
               <div>
-                <div class="font-bold">{{ country.name }}</div>
+                <div class="font-bold">{{ country.name | titlecase }}</div>
                 <div class="text-sm opacity-50">{{ country.code }}</div>
               </div>
             </div>
+          </td>
+          <td>
+            {{ country.capital }}
           </td>
           <td>
             {{ country.region }}
           </td>
           <td>{{ country.subregion }}</td>
           <th>
-            <button class="btn btn-ghost btn-xs">Ir a Detalles</button>
+            <a
+              [routerLink]="['/', paths.search, paths.code, country.code]"
+              class="btn btn-ghost btn-xs"
+              >Ir a Detalles</a
+            >
           </th>
         </tr>
         }

@@ -19,8 +19,12 @@ const countryRoutes: Routes = [
         loadComponent: () => import('./pages/by-capital-page/by-capital-page'),
       },
       {
+        path: `${PATHS.code}/:code`,
+        loadComponent: () => import('./pages/by-code/by-code'),
+      },
+      {
         path: '**',
-        redirectTo: PATHS.capital,
+        redirectTo: PATHS.region,
       },
     ],
   },

@@ -4,4 +4,5 @@ export const PATHS = {
   country: 'by-country',
   region: 'by-region',
   capital: 'by-capital',
+  code: 'by-code',
 };

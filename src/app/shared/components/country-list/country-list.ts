@@ -9,18 +9,21 @@ import {
 } from '@angular/core';
 import { SearchKey } from '../../../search/interfaces/country-resp';
 import { SearchService } from '../../../search/services/search-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { TitleCasePipe } from '@angular/common';
+import { PATHS } from '../../../utils/paths';
 
 @Component({
   selector: 'app-country-list',
-  imports: [],
+  imports: [TitleCasePipe, RouterLink],
   templateUrl: './country-list.html',
 })
 export class CountryList implements OnDestroy {
+  paths = PATHS;
   activatedRoute = inject(ActivatedRoute);
-  searchKey = input<SearchKey>('region');
   searchService = inject(SearchService);
+  searchKey = input<SearchKey>('region');
   countries = computed(() => this.searchService.countries());
   isLoading = computed(() => this.searchService.isLoading());
   hasError = computed(() => this.searchService.hasError());
@@ -29,7 +32,7 @@ export class CountryList implements OnDestroy {
   private routeSubscription?: Subscription;
 
   constructor() {
-    this.routeSubscription = this.activatedRoute.url.subscribe((url) => {
+    this.routeSubscription = this.activatedRoute.url.subscribe(() => {
       // Clean countries and state when the route changes
       this.searchService.clearCountries();
       // Clear search input

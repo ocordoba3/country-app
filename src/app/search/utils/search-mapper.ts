@@ -3,8 +3,8 @@ import { CountryResp } from '../interfaces/country-resp';
 
 export function mapCountriesResponse(countries: CountryResp[]): Country[] {
   return countries.map((country) => ({
-    name: country.name.common,
-    code: country.fifa || 'N/A',
+    name: country.translations['spa'].official || country.name.official,
+    code: country.cca3 || country.cca2 || 'N/A',
     capital: country.capital ? country.capital.join(', ') : 'N/A',
     population: country.population,
     flags: {

@@ -1,4 +1,4 @@
-export type SearchKey = 'name' | 'capital' | 'region';
+export type SearchKey = 'name' | 'capital' | 'region' | 'alpha';
 
 export interface CountryResp {
   name: Name;
