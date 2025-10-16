@@ -26,35 +26,32 @@
   <article class="w-full h-[70vh] flex place-content-center">
     <span class="loading loading-bars loading-xl"></span>
   </article>
-  } @if(!isLoading() && countries().length === 0 && !hasError()) {
+  }
+
+  <!--  -->
+  @if(!isLoading() && countries().length === 0) {
   <article class="w-full h-[60vh] flex place-content-center flex-wrap">
     <div class="card text-primary-content w-full h-fit lg:w-1/2 lg:mx-auto">
       <div class="card-body">
-        <h2 class="text-primary text-center text-2xl">Encuentra tu país favorito!</h2>
+        <h2 class="text-primary text-center text-2xl">
+          @if(!hasError()) {Encuentra tu país favorito!} @else {No hemos encontrado resultados}
+        </h2>
         <p class="text-primary text-center">
-          Usa el buscador para encontrar información de cualquier país del mundo.
+          @if(!hasError()) {Usa el buscador para encontrar información de cualquier país del mundo.}
+          @else {Prueba con otro término de búsqueda.}
         </p>
         <div class="card-actions justify-center mt-4">
-          <button (click)="searchNow()" type="button" class="btn btn-primary">Buscar ahora</button>
-        </div>
-      </div>
-    </div>
-  </article>
-  }@if(!isLoading() && countries().length === 0 && hasError()) {
-  <article class="w-full h-[60vh] flex place-content-center flex-wrap">
-    <div class="card text-primary-content w-full h-fit lg:w-1/2 lg:mx-auto">
-      <div class="card-body">
-        <h2 class="text-primary text-center text-2xl">No hemos encontrado resultados</h2>
-        <p class="text-primary text-center">Prueba con otro término de búsqueda.</p>
-        <div class="card-actions justify-center mt-4">
-          <button (click)="searchNow()" type="button" class="btn btn-primary">
-            Volver a buscar
+          <button (click)="searchNow()" type="button" class="btn btn-neutral">
+            @if(!hasError()) {Buscar ahora} @else {Volver a buscar}
           </button>
         </div>
       </div>
     </div>
   </article>
-  } @if(!isLoading() && countries().length > 0){
+  }
+
+  <!--  -->
+  @if(!isLoading() && countries().length > 0){
   <article class="overflow-x-auto h-[70vh] overflow-y-auto">
     <table class="table">
       <thead class="sticky top-0 bg-gray-800 z-[2]">

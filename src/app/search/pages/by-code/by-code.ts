@@ -3,11 +3,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SearchService } from '../../services/search-service';
 import { Subscription } from 'rxjs';
 import { PATHS } from '../../../utils/paths';
-import { DecimalPipe, TitleCasePipe } from '@angular/common';
+import { CountryDetail } from '../../../shared/components/country-detail/country-detail';
 
 @Component({
   selector: 'app-by-code',
-  imports: [RouterLink, DecimalPipe, TitleCasePipe],
+  imports: [RouterLink, CountryDetail],
   templateUrl: './by-code.html',
 })
 export default class ByCode implements OnDestroy {

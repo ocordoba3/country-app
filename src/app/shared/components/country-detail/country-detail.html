@@ -1,0 +1,128 @@
+<article class="w-full h-fit grid mt-8">
+  <h1 class="card-title text-4xl px-6 mb-4">
+    {{ country()?.name }} <span class="badge badge-info">{{ country()?.code }}</span>
+  </h1>
+  <h2 class="card-title text-xl px-6 mb-8 flex items-center gap-2">
+    Capital:
+    <span class="badge badge-soft badge-xl"> {{ country()?.capital | titlecase }}</span>
+  </h2>
+  <!-- Stats -->
+  <div class="stats shadow">
+    <div class="stat">
+      <div class="stat-figure text-secondary">
+        <svg
+          class="inline-block h-8 w-8 stroke-current"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M14 12.25a3.75 3.75 0 1 1 3.75-3.75A3.75 3.75 0 0 1 14 12.25m0-6a2.25 2.25 0 1 0 2.25 2.25A2.25 2.25 0 0 0 14 6.25m7 13a.76.76 0 0 1-.75-.75c0-1.95-1.06-3.25-6.25-3.25s-6.25 1.3-6.25 3.25a.75.75 0 0 1-1.5 0c0-4.75 5.43-4.75 7.75-4.75s7.75 0 7.75 4.75a.76.76 0 0 1-.75.75M8.32 13.06H8a3 3 0 1 1 .58-6a.75.75 0 1 1-.15 1.49a1.46 1.46 0 0 0-1.09.34a1.47 1.47 0 0 0-.54 1a1.49 1.49 0 0 0 1.35 1.64a1.53 1.53 0 0 0 .93-.22a.75.75 0 0 1 .79 1.28a3 3 0 0 1-1.55.47M3 18.5a.76.76 0 0 1-.75-.75c0-2.7.72-4.5 4.25-4.5a.75.75 0 0 1 0 1.5c-2.35 0-2.75.75-2.75 3a.76.76 0 0 1-.75.75"
+          />
+        </svg>
+      </div>
+      <div class="stat-title">Población</div>
+      <div class="stat-value text-secondary">{{ country()?.population | number }}</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-figure text-secondary">
+        <svg
+          class="inline-block h-8 w-8 stroke-current"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M20 11.75a.74.74 0 0 1-.45-.15L12 5.94L4.45 11.6a.75.75 0 0 1-.9-1.2l8-6a.75.75 0 0 1 .9 0l8 6a.75.75 0 0 1 .15 1a.74.74 0 0 1-.6.35"
+          />
+          <path
+            fill="currentColor"
+            d="M18 19.75H6a.76.76 0 0 1-.75-.75V9.5a.75.75 0 0 1 1.5 0v8.75h10.5V9.5a.75.75 0 0 1 1.5 0V19a.76.76 0 0 1-.75.75"
+          />
+          <path
+            fill="currentColor"
+            d="M14 19.75a.76.76 0 0 1-.75-.75v-6.25h-2.5V19a.75.75 0 0 1-1.5 0v-7a.76.76 0 0 1 .75-.75h4a.76.76 0 0 1 .75.75v7a.76.76 0 0 1-.75.75"
+          />
+        </svg>
+      </div>
+      <div class="stat-title">Área</div>
+      <div class="stat-value text-secondary">{{ country()?.area | number }} km²</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-figure text-secondary">
+        <svg
+          class="inline-block h-8 w-8 stroke-current"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+          >
+            <path
+              d="M3.85 8.62a4 4 0 0 1 4.78-4.77a4 4 0 0 1 6.74 0a4 4 0 0 1 4.78 4.78a4 4 0 0 1 0 6.74a4 4 0 0 1-4.77 4.78a4 4 0 0 1-6.75 0a4 4 0 0 1-4.78-4.77a4 4 0 0 1 0-6.76"
+            />
+            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8m4 2V6" />
+          </g>
+        </svg>
+      </div>
+      <div class="stat-title">Moneda</div>
+      <div class="stat-value text-secondary">{{ currency() }}</div>
+    </div>
+  </div>
+  <!-- Flag and details -->
+  <div class="bg-base-100 w-full flex flex-wrap justify-between mt-8 px-8">
+    <div class="card w-full mt-4 grid grid-cols-2 gap-16 h-fit">
+      <div>
+        <p class="text-justify">
+          {{ country()?.flags?.description || 'No hay descripción disponible de la bandera' }}
+        </p>
+        <div class="rounded-xl grid grid-cols-2 gap-8 mt-6 flex-wrap mb-4">
+          <h3 class="card-title text-xl">Bandera</h3>
+          <h3 class="card-title text-xl">Escudo de armas</h3>
+        </div>
+        <div class="rounded-xl grid grid-cols-2 gap-8 flex-wrap">
+          <img [src]="country()?.flags?.png" alt="Country Flag" class="w-full rounded-xl" />
+          <img [src]="country()?.coatOfArms" alt="Country Coat of Arms" class="w-full" />
+        </div>
+      </div>
+
+      <div class="card w-full h-[400px] bg-secondary/5 flex items-center justify-center">
+        @if (country()?.map; as mapUrl) {
+        <div class="text-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="64"
+            height="64"
+            viewBox="0 0 24 24"
+            class="mx-auto mb-4 text-primary"
+          >
+            <path
+              fill="currentColor"
+              d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5z"
+            />
+          </svg>
+          <h3 class="text-lg font-semibold mb-2">Ver ubicación de {{ country()?.name }}</h3>
+          <p class="text-sm text-gray-600 mb-4">Haz clic para abrir Google Maps</p>
+          <a [href]="mapUrl" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Abrir en Google Maps
+          </a>
+        </div>
+        } @else {
+        <h3 class="text-lg font-semibold mb-2">Mapa no disponible</h3>
+        }
+      </div>
+    </div>
+  </div>
+</article>

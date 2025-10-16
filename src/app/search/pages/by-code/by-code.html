@@ -2,38 +2,24 @@
 <article class="w-full h-[70vh] flex place-content-center">
   <span class="loading loading-bars loading-xl"></span>
 </article>
-} @if(!isLoading() && hasError()) {
+}
+
+<!--  -->
+@if(!isLoading() && hasError()) {
 <article class="w-full h-[60vh] flex place-content-center flex-wrap">
   <div class="card text-primary-content w-full h-fit lg:w-1/2 lg:mx-auto">
     <div class="card-body">
       <h2 class="text-primary text-center text-2xl">No hemos encontrado resultados</h2>
       <p class="text-primary text-center">Prueba con otra búsqueda.</p>
       <div class="card-actions justify-center mt-4">
-        <a [routerLink]="['/', paths.search, paths.region]" class="btn btn-primary"> Ir atrás </a>
+        <a [routerLink]="['/', paths.search, paths.region]" class="btn btn-neutral"> Ir atrás </a>
       </div>
     </div>
   </div>
 </article>
-} @if(!isLoading() && country() && !hasError()) {
-<article class="w-full h-fit flex place-content-center flex-wrap mt-8">
-  <div class="card bg-base-100 w-96 shadow-sm">
-    <figure>
-      <img [src]="country().flags.png" alt="Country Flag" class="rounded-xl w-full" />
-    </figure>
-    <div class="card-body px-0">
-      <h2 class="card-title text-3xl">{{ country().name }}</h2>
-      <p>Capital: {{ country().capital | titlecase }}</p>
-      <p>Población: {{ country().population | number }}</p>
-      <p>Región: {{ country().region | titlecase }}</p>
-      <p>Subregión: {{ country().subregion | titlecase }}</p>
-      <!-- <p>
-        A card component has a figure, a body part, and inside body there are title and actions
-        parts
-      </p> -->
-      <div class="card-actions justify-center mt-8">
-        <button class="btn btn-primary">Marcar como favorito</button>
-      </div>
-    </div>
-  </div>
-</article>
+}
+
+<!--  -->
+@if(!isLoading() && country() && !hasError()) {
+<app-country-detail [country]="country()"></app-country-detail>
 }

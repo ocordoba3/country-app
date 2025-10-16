@@ -9,7 +9,12 @@ export interface CountryResp {
   independent: boolean;
   status: string;
   unMember: boolean;
-  currencies: Currencies;
+  currencies: {
+    [key: string]: {
+      symbol: string;
+      name: string;
+    };
+  };
   idd: Idd;
   capital: string[];
   altSpellings: string[];
@@ -51,16 +56,6 @@ interface CoatOfArms {
   png: string;
   svg: string;
 }
-
-interface Currencies {
-  EUR: Eur;
-}
-
-interface Eur {
-  symbol: string;
-  name: string;
-}
-
 interface Demonyms {
   eng: Eng;
   fra: Eng;
