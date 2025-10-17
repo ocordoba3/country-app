@@ -1,1 +1,15 @@
-<app-country-list searchKey="region"></app-country-list>
+<div
+  role="tablist"
+  class="tabs tabs-lift my-8 w-full border-b border-gray-200 overflow-x-auto flex-nowrap"
+>
+  @for (tab of tabs; track tab) {
+  <a
+    role="tab"
+    class="tab [--tab-border-color:gray-200] border-b-0"
+    [class.tab-active]="selectedTab() === tab"
+    (click)="handleSearch(tab)"
+    >{{ tab }}</a
+  >
+  }
+</div>
+<app-table [countries]="countries()"></app-table>

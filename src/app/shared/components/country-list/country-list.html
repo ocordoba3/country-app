@@ -29,92 +29,10 @@
   }
 
   <!--  -->
-  @if(!isLoading() && countries().length === 0) {
-  <article class="w-full h-[60vh] flex place-content-center flex-wrap">
-    <div class="card text-primary-content w-full h-fit lg:w-1/2 lg:mx-auto">
-      <div class="card-body">
-        <h2 class="text-primary text-center text-2xl">
-          @if(!hasError()) {Find your favorite country!} @else {No results found}
-        </h2>
-        <p class="text-primary text-center">
-          @if(!hasError()) {Use the search bar to find information about any country in the world.}
-          @else {Try with a different search term.}
-        </p>
-        <div class="card-actions justify-center mt-4">
-          <button (click)="searchNow()" type="button" class="btn btn-neutral">
-            @if(!hasError()) {Search now} @else {Search again}
-          </button>
-        </div>
-      </div>
-    </div>
-  </article>
-  }
-
-  <!--  -->
-  @if(!isLoading() && countries().length > 0){
-  <article class="overflow-x-auto h-[70vh] overflow-y-auto">
-    <table class="table">
-      <thead class="sticky top-0 bg-gray-800 z-[2]">
-        <tr>
-          <th class="hidden md:block"></th>
-          <th>Country</th>
-          <th>Capital</th>
-          <th>Region</th>
-          <th>Subregion</th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        @for (country of countries(); track country.name) {
-        <tr>
-          <th class="hidden md:block">
-            <div class="tooltip tooltip-right z-[1]" data-tip="Mark as favorite">
-              <button class="btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                  <path
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m12 21l-8.8-8.3A5.6 5.6 0 1 1 12 6a5.6 5.6 0 1 1 8.9 6.6z"
-                  />
-                </svg>
-              </button>
-            </div>
-          </th>
-          <td>
-            <div class="flex items-center gap-3">
-              <div class="avatar">
-                <div class="mask mask-squircle h-12 w-12">
-                  <img [src]="country.flags.svg" [alt]="country.name" />
-                </div>
-              </div>
-              <div>
-                <div class="font-bold">{{ country.name | titlecase }}</div>
-                <div class="text-sm opacity-50">{{ country.code }}</div>
-              </div>
-            </div>
-          </td>
-          <td>
-            {{ country.capital }}
-          </td>
-          <td>
-            {{ country.region }}
-          </td>
-          <td>{{ country.subregion }}</td>
-          <th>
-            <a
-              [routerLink]="['/', paths.search, paths.code, country.code]"
-              class="btn btn-ghost btn-xs"
-              >Go to Details</a
-            >
-          </th>
-        </tr>
-        }
-      </tbody>
-    </table>
-  </article>
-  }
+  <app-table
+    [countries]="countries()"
+    [isLoading]="isLoading()"
+    [hasError]="hasError()"
+    [inputElement]="inputElement()"
+  ></app-table>
 </section>

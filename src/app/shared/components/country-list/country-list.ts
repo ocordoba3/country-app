@@ -11,14 +11,14 @@ import {
 } from '@angular/core';
 import { SearchKey } from '../../../search/interfaces/country-resp';
 import { SearchService } from '../../../search/services/search-service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { TitleCasePipe } from '@angular/common';
 import { PATHS } from '../../../utils/paths';
+import { Table } from '../table/table';
 
 @Component({
   selector: 'app-country-list',
-  imports: [TitleCasePipe, RouterLink],
+  imports: [Table],
   templateUrl: './country-list.html',
 })
 export class CountryList implements OnDestroy {
