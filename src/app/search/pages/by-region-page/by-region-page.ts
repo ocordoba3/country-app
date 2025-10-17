@@ -8,7 +8,7 @@ import { SearchService } from '../../services/search-service';
   templateUrl: './by-region-page.html',
 })
 export default class ByRegionPage {
-  tabs = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+  tabs = ['Africa', 'Americas', 'Antarctic', 'Asia', 'Europe', 'Oceania'];
   searchService = inject(SearchService);
   countries = computed(() => this.searchService.countries());
   selectedTab = signal<string>(this.tabs[0]);

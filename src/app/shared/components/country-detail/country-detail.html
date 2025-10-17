@@ -139,11 +139,15 @@
         }
         <div class="rounded-xl grid grid-cols-2 gap-8 mt-6 flex-wrap mb-4">
           <h3 class="card-title text-xl">Flag</h3>
+          @if(country()?.coatOfArms) {
           <h3 class="card-title text-xl">Coat of Arms</h3>
+          }
         </div>
         <div class="rounded-xl grid grid-cols-2 gap-8 flex-wrap">
           <img [src]="country()?.flags?.png" alt="Country Flag" class="w-full rounded-xl" />
+          @if(country()?.coatOfArms) {
           <img [src]="country()?.coatOfArms" alt="Country Coat of Arms" class="w-full" />
+          }
         </div>
       </div>
 
