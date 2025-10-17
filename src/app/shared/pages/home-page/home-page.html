@@ -1,19 +1,24 @@
-<div
-  class="hero min-h-screen flex relative"
-  style="
-    background-image: url(https://images.unsplash.com/photo-1589519160732-57fc498494f8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170);
-  "
->
-  <div class="hero-overlay w-screen h-screen absolute z-10"></div>
+<div class="hero min-h-screen flex relative overflow-hidden">
+  <div
+    class="absolute inset-0 bg-cover bg-center animation"
+    style="
+      background-image: url(https://images.unsplash.com/photo-1589519160732-57fc498494f8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170);
+    "
+  ></div>
+
+  <div class="hero-overlay w-screen h-screen absolute z-10 bg-black/40"></div>
+
   <div class="flex flex-wrap place-content-center w-full md:w-md p-4 md:absolute z-20 lg:ml-20">
     <div class="text-center">
-      <h1 class="mb-8 text-5xl md:text-7xl font-bold text-white">CountryApp</h1>
-      <p class="mb-5 p-4 rounded-lg bg-white/30 text-white">
-        Explora el mundo desde tu navegador. Descubre información detallada sobre países, sus
-        capitales, población, idiomas y mucho más. Tu guía completa para conocer todas las naciones
-        del planeta.
+      <h1 class="mb-8 text-5xl md:text-7xl font-bold text-white drop-shadow-2xl">Countries</h1>
+      <p class="mb-5 p-4 rounded-lg bg-white/30 backdrop-blur-sm text-white shadow-xl">
+        Explore the world from your browser. Discover detailed information about countries, their
+        capitals, population, languages and much more. Your complete guide to learn about all the
+        nations of the planet.
       </p>
-      <a [routerLink]="[paths.search, paths.region]" class="btn btn-primary">Explorar Países</a>
+      <a [routerLink]="[paths.search, paths.region]" class="btn btn-primary hover:bg-primary/90">
+        Explore Countries
+      </a>
     </div>
   </div>
 </div>

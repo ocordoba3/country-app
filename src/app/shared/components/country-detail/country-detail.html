@@ -7,7 +7,52 @@
     <span class="badge badge-soft badge-xl"> {{ country()?.capital | titlecase }}</span>
   </h2>
   <!-- Stats -->
-  <div class="stats shadow">
+  <div class="stats shadow grid md:grid-cols-3">
+    <div class="stat">
+      <div class="stat-figure text-secondary">
+        <svg
+          class="inline-block h-8 w-8 stroke-current"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M21.89 7.172C22 8.433 22 10.006 22 12c0 4.134 0 6.455-.987 7.951L15.06 14zm-1.938 13.84L14 15.06l-6.828 6.83C8.433 22 10.006 22 12 22c4.134 0 6.456 0 7.952-.988"
+          />
+          <path
+            fill="currentColor"
+            fill-rule="evenodd"
+            d="M12 2c4.714 0 7.071 0 8.535 1.464c.504.504.835 1.114 1.052 1.889L5.353 21.587c-.775-.217-1.385-.548-1.889-1.052C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2M5.5 8.757c0 1.785 1.117 3.868 2.86 4.613c.406.173.874.173 1.28 0c1.743-.745 2.86-2.828 2.86-4.613C12.5 6.958 10.933 5.5 9 5.5S5.5 6.958 5.5 8.757"
+            clip-rule="evenodd"
+          />
+          <path fill="currentColor" d="M10.5 9a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0" />
+        </svg>
+      </div>
+      <div class="stat-title">Region</div>
+      <div class="stat-value text-secondary">{{ country()?.region | titlecase }}</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-figure text-secondary">
+        <svg
+          class="inline-block h-8 w-8 stroke-current"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12 21.325q-.35 0-.7-.125t-.625-.375Q9.05 19.325 7.8 17.9t-2.087-2.762t-1.275-2.575T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 1.125-.437 2.363t-1.275 2.575T16.2 17.9t-2.875 2.925q-.275.25-.625.375t-.7.125M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12"
+          />
+        </svg>
+      </div>
+      <div class="stat-title">Subregion</div>
+      <div class="stat-value text-secondary">{{ country()?.subregion | titlecase }}</div>
+    </div>
+
     <div class="stat">
       <div class="stat-figure text-secondary">
         <svg
@@ -23,10 +68,12 @@
           />
         </svg>
       </div>
-      <div class="stat-title">Población</div>
+      <div class="stat-title">Population</div>
       <div class="stat-value text-secondary">{{ country()?.population | number }}</div>
     </div>
+  </div>
 
+  <div class="stats shadow grid md:grid-cols-2">
     <div class="stat">
       <div class="stat-figure text-secondary">
         <svg
@@ -50,7 +97,7 @@
           />
         </svg>
       </div>
-      <div class="stat-title">Área</div>
+      <div class="stat-title">Area</div>
       <div class="stat-value text-secondary">{{ country()?.area | number }} km²</div>
     </div>
 
@@ -77,7 +124,7 @@
           </g>
         </svg>
       </div>
-      <div class="stat-title">Moneda</div>
+      <div class="stat-title">Currency</div>
       <div class="stat-value text-secondary">{{ currency() }}</div>
     </div>
   </div>
@@ -85,12 +132,14 @@
   <div class="bg-base-100 w-full flex flex-wrap justify-between mt-8 px-8">
     <div class="card w-full mt-4 grid grid-cols-2 gap-16 h-fit">
       <div>
+        @if(country()?.flags?.description){
         <p class="text-justify">
-          {{ country()?.flags?.description || 'No hay descripción disponible de la bandera' }}
+          {{ country()?.flags?.description }}
         </p>
+        }
         <div class="rounded-xl grid grid-cols-2 gap-8 mt-6 flex-wrap mb-4">
-          <h3 class="card-title text-xl">Bandera</h3>
-          <h3 class="card-title text-xl">Escudo de armas</h3>
+          <h3 class="card-title text-xl">Flag</h3>
+          <h3 class="card-title text-xl">Coat of Arms</h3>
         </div>
         <div class="rounded-xl grid grid-cols-2 gap-8 flex-wrap">
           <img [src]="country()?.flags?.png" alt="Country Flag" class="w-full rounded-xl" />
@@ -113,14 +162,14 @@
               d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5z"
             />
           </svg>
-          <h3 class="text-lg font-semibold mb-2">Ver ubicación de {{ country()?.name }}</h3>
-          <p class="text-sm text-gray-600 mb-4">Haz clic para abrir Google Maps</p>
+          <h3 class="text-lg font-semibold mb-2">View location of {{ country()?.name }}</h3>
+          <p class="text-sm text-gray-600 mb-4">Click to open Google Maps</p>
           <a [href]="mapUrl" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            Abrir en Google Maps
+            Open in Google Maps
           </a>
         </div>
         } @else {
-        <h3 class="text-lg font-semibold mb-2">Mapa no disponible</h3>
+        <h3 class="text-lg font-semibold mb-2">Map not available</h3>
         }
       </div>
     </div>

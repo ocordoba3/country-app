@@ -15,10 +15,10 @@
     <input
       [disabled]="isLoading()"
       #searchInput
-      type="search"
-      class="grow"
-      placeholder="Buscar país..."
-      (change)="handleChange($event)"
+      type="text"
+      class="grow placeholder:opacity-65 placeholder:italic"
+      [placeholder]="placeholder()"
+      (keyup)="inputValue.set($event.target.value)"
     />
   </label>
 
@@ -34,15 +34,15 @@
     <div class="card text-primary-content w-full h-fit lg:w-1/2 lg:mx-auto">
       <div class="card-body">
         <h2 class="text-primary text-center text-2xl">
-          @if(!hasError()) {Encuentra tu país favorito!} @else {No hemos encontrado resultados}
+          @if(!hasError()) {Find your favorite country!} @else {No results found}
         </h2>
         <p class="text-primary text-center">
-          @if(!hasError()) {Usa el buscador para encontrar información de cualquier país del mundo.}
-          @else {Prueba con otro término de búsqueda.}
+          @if(!hasError()) {Use the search bar to find information about any country in the world.}
+          @else {Try with a different search term.}
         </p>
         <div class="card-actions justify-center mt-4">
           <button (click)="searchNow()" type="button" class="btn btn-neutral">
-            @if(!hasError()) {Buscar ahora} @else {Volver a buscar}
+            @if(!hasError()) {Search now} @else {Search again}
           </button>
         </div>
       </div>
@@ -57,10 +57,10 @@
       <thead class="sticky top-0 bg-gray-800 z-[2]">
         <tr>
           <th class="hidden md:block"></th>
-          <th>País</th>
+          <th>Country</th>
           <th>Capital</th>
-          <th>Región</th>
-          <th>Subregión</th>
+          <th>Region</th>
+          <th>Subregion</th>
           <th></th>
         </tr>
       </thead>
@@ -69,7 +69,7 @@
         @for (country of countries(); track country.name) {
         <tr>
           <th class="hidden md:block">
-            <div class="tooltip tooltip-right z-[1]" data-tip="Marcar como favorito">
+            <div class="tooltip tooltip-right z-[1]" data-tip="Mark as favorite">
               <button class="btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path
@@ -108,7 +108,7 @@
             <a
               [routerLink]="['/', paths.search, paths.code, country.code]"
               class="btn btn-ghost btn-xs"
-              >Ir a Detalles</a
+              >Go to Details</a
             >
           </th>
         </tr>

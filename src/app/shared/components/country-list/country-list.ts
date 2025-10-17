@@ -1,11 +1,13 @@
 import {
   Component,
   computed,
+  effect,
   ElementRef,
   inject,
   input,
-  viewChild,
   OnDestroy,
+  signal,
+  viewChild,
 } from '@angular/core';
 import { SearchKey } from '../../../search/interfaces/country-resp';
 import { SearchService } from '../../../search/services/search-service';
@@ -24,12 +26,23 @@ export class CountryList implements OnDestroy {
   activatedRoute = inject(ActivatedRoute);
   searchService = inject(SearchService);
   searchKey = input<SearchKey>('region');
+  inputValue = signal<string>('');
   countries = computed(() => this.searchService.countries());
   isLoading = computed(() => this.searchService.isLoading());
   hasError = computed(() => this.searchService.hasError());
+  placeholder = computed(() => `Find countries by ${this.searchKey()}...`);
   inputElement = viewChild<ElementRef>('searchInput');
 
   private routeSubscription?: Subscription;
+
+  debounceSearch = effect((onCleanUp) => {
+    const value = this.inputValue();
+    const timeout = setTimeout(() => {
+      this.searchCountries(value);
+    }, 500);
+
+    onCleanUp(() => clearTimeout(timeout));
+  });
 
   constructor() {
     this.routeSubscription = this.activatedRoute.url.subscribe(() => {
@@ -48,13 +61,8 @@ export class CountryList implements OnDestroy {
     this.routeSubscription?.unsubscribe();
   }
 
-  searchRegion(query: string) {
+  searchCountries(query: string) {
     this.searchService.searchCountries(this.searchKey(), query);
-  }
-
-  handleChange(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    this.searchRegion(value);
   }
 
   searchNow() {

@@ -22,6 +22,11 @@ export class SearchService {
   }
 
   searchCountries(key: SearchKey, queryValue: string) {
+    if (!queryValue.trim().length) {
+      this.countries.set([]);
+      this.hasError.set(false);
+      return;
+    }
     this.isLoading.set(true);
     this.http
       .get<CountryResp[]>(`${this.URL_BASE}/${key}/${queryValue.toLowerCase()}`)
