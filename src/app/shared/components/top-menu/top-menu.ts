@@ -3,6 +3,7 @@ import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/ro
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, startWith } from 'rxjs/operators';
 import { PATHS } from '../../../utils/paths';
+import { SearchService } from '../../../search/services/search-service';
 
 @Component({
   selector: 'app-top-menu',
@@ -11,6 +12,7 @@ import { PATHS } from '../../../utils/paths';
 })
 export class TopMenu {
   private router = inject(Router);
+  searchService = inject(SearchService);
   paths = PATHS;
 
   // Convertir NavigationEnd a signal

@@ -3,8 +3,8 @@
   <li>
     <a
       [routerLink]="[paths.region]"
+      [queryParams]="{ q: searchService.navigationHistory.get('region') || null }"
       [routerLinkActive]="['bg-primary/80', 'font-bold', 'text-black']"
-      [routerLinkActiveOptions]="{ exact: true }"
       class="tooltip"
       data-tip="Region"
     >
@@ -27,8 +27,8 @@
   <li>
     <a
       [routerLink]="[paths.country]"
+      [queryParams]="{ q: searchService.navigationHistory.get('name') || null }"
       [routerLinkActive]="['bg-primary/80', 'font-bold', 'text-black']"
-      [routerLinkActiveOptions]="{ exact: true }"
       class="tooltip"
       data-tip="Country"
     >
@@ -44,8 +44,8 @@
   <li>
     <a
       [routerLink]="[paths.capital]"
+      [queryParams]="{ q: searchService.navigationHistory.get('capital') || null }"
       [routerLinkActive]="['bg-primary/80', 'font-bold', 'text-black']"
-      [routerLinkActiveOptions]="{ exact: true }"
       class="tooltip"
       data-tip="Capital"
     >

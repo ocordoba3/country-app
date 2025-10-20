@@ -15,6 +15,7 @@ export class SearchService {
   isLoading = signal(false);
   hasError = signal(false);
   countries = signal<Country[]>([]);
+  navigationHistory = new Map<SearchKey, string>();
 
   clearCountries() {
     this.countries.set([]);
@@ -22,7 +23,7 @@ export class SearchService {
   }
 
   searchCountries(key: SearchKey, queryValue: string) {
-    if (!queryValue.trim().length) {
+    if (key === null || !queryValue.trim().length) {
       this.countries.set([]);
       this.hasError.set(false);
       return;

@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import { SearchKey } from '../../../search/interfaces/country-resp';
 import { SearchService } from '../../../search/services/search-service';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, combineLatest } from 'rxjs';
 import { PATHS } from '../../../utils/paths';
 import { Table } from '../table/table';
 
@@ -24,9 +24,11 @@ import { Table } from '../table/table';
 export class CountryList implements OnDestroy {
   paths = PATHS;
   activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
   searchService = inject(SearchService);
-  searchKey = input<SearchKey>('region');
+  searchKey = input<SearchKey>(null);
   inputValue = signal<string>('');
+
   countries = computed(() => this.searchService.countries());
   isLoading = computed(() => this.searchService.isLoading());
   hasError = computed(() => this.searchService.hasError());
@@ -35,34 +37,75 @@ export class CountryList implements OnDestroy {
 
   private routeSubscription?: Subscription;
 
+  // Effect para debounce de búsqueda
   debounceSearch = effect((onCleanUp) => {
     const value = this.inputValue();
     const timeout = setTimeout(() => {
-      this.searchCountries(value);
+      if (value) {
+        this.handleSearch(value);
+      }
     }, 500);
 
     onCleanUp(() => clearTimeout(timeout));
   });
 
-  constructor() {
-    this.routeSubscription = this.activatedRoute.url.subscribe(() => {
-      // Clean countries and state when the route changes
-      this.searchService.clearCountries();
-      // Clear search input
-      setTimeout(() => {
-        if (this.inputElement()?.nativeElement) {
-          this.inputElement()!.nativeElement.value = '';
+  // Effect para inicializar suscripciones solo cuando searchKey tenga valor
+  routeEffect = effect((onCleanUp) => {
+    const currentSearchKey = this.searchKey();
+
+    // Solo ejecutar si searchKey tiene un valor válido (no null)
+    if (currentSearchKey) {
+      // Suscripción combinada para detectar cambios de ruta y query params
+      this.routeSubscription = combineLatest([
+        this.activatedRoute.url,
+        this.activatedRoute.queryParams,
+      ]).subscribe(([urlSegments, queryParams]) => {
+        const query = queryParams['q'];
+
+        // Si hay query, restaurar búsqueda
+        if (query) {
+          this.inputValue.set(query);
+          this.searchService.searchCountries(currentSearchKey, query);
+          // Actualizar el input visual
+          setTimeout(() => {
+            if (this.inputElement()?.nativeElement) {
+              this.inputElement()!.nativeElement.value = query;
+            }
+          }, 0);
+        } else {
+          this.searchService.clearCountries();
+          this.inputValue.set('');
+          setTimeout(() => {
+            if (this.inputElement()?.nativeElement) {
+              this.inputElement()!.nativeElement.value = '';
+            }
+          }, 0);
         }
-      }, 0);
+      });
+    }
+
+    // Cleanup: desuscribirse cuando el effect se limpie
+    onCleanUp(() => {
+      if (this.routeSubscription) {
+        this.routeSubscription.unsubscribe();
+        this.routeSubscription = undefined;
+      }
     });
-  }
+  });
+
+  constructor() {}
 
   ngOnDestroy() {
     this.routeSubscription?.unsubscribe();
   }
 
-  searchCountries(query: string) {
-    this.searchService.searchCountries(this.searchKey(), query);
+  handleSearch(query: string) {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { q: query || null },
+      queryParamsHandling: 'merge', // Mantener otros query params existentes
+    });
+    this.searchService.navigationHistory.set(this.searchKey(), query);
   }
 
   searchNow() {
