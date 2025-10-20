@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, startWith } from 'rxjs/operators';
 import { PATHS } from '../../../utils/paths';
 import { SearchService } from '../../../search/services/search-service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-top-menu',
@@ -12,6 +13,7 @@ import { SearchService } from '../../../search/services/search-service';
 })
 export class TopMenu {
   private router = inject(Router);
+  location = inject(Location);
   searchService = inject(SearchService);
   paths = PATHS;
 
@@ -26,8 +28,12 @@ export class TopMenu {
     { initialValue: this.router.url }
   );
 
-  // Computed para verificar rutas específicas
-  isHomePage = computed(() => this.currentUrl() === '/');
   isSearchPage = computed(() => this.currentUrl()?.startsWith('/search') ?? false);
   isDetailsPage = computed(() => this.currentUrl()?.includes('/by-code/') ?? false);
+
+  goBack() {
+    return this.searchService.navigationHistory.size > 0
+      ? this.location.back()
+      : this.router.navigate(['/', this.paths.search, this.paths.region]);
+  }
 }

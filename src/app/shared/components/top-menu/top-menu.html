@@ -62,7 +62,7 @@
   </li>
   }@else if(isDetailsPage()) {
   <li>
-    <a [routerLink]="['/', paths.search, paths.region]" class="bg-primary/20 text-white">
+    <button (click)="goBack()" type="button" class="bg-primary/20 text-white">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path
           fill="currentColor"
@@ -71,7 +71,7 @@
         <path fill="currentColor" d="M19 12.75H5a.75.75 0 0 1 0-1.5h14a.75.75 0 0 1 0 1.5" />
       </svg>
       <span class="hidden lg:block">Go back</span>
-    </a>
+    </button>
   </li>
   }
 </ul>
