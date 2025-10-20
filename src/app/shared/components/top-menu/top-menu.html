@@ -1,66 +1,18 @@
 <ul class="menu menu-horizontal bg-gray-800 rounded-box w-full">
-  @if (isSearchPage() && !isDetailsPage()) {
-  <li>
+  <span class="self-center px-4">Search by:</span>
+  @if (isSearchPage() && !isDetailsPage()) { @for (route of routes; track route.key) {
+  <li class="mr-2">
     <a
-      [routerLink]="[paths.region]"
-      [queryParams]="{ q: searchService.navigationHistory.get('region') || null }"
-      [routerLinkActive]="['bg-primary/80', 'font-bold', 'text-black']"
-      class="tooltip"
-      data-tip="Region"
+      [routerLink]="[route.path]"
+      [queryParams]="{ q: searchService.navigationHistory.get(route.key) || null }"
+      [routerLinkActive]="['bg-primary/80', 'font-bold']"
+      class="text-white"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path
-          fill="currentColor"
-          d="M21.89 7.172C22 8.433 22 10.006 22 12c0 4.134 0 6.455-.987 7.951L15.06 14zm-1.938 13.84L14 15.06l-6.828 6.83C8.433 22 10.006 22 12 22c4.134 0 6.456 0 7.952-.988"
-        />
-        <path
-          fill="currentColor"
-          fill-rule="evenodd"
-          d="M12 2c4.714 0 7.071 0 8.535 1.464c.504.504.835 1.114 1.052 1.889L5.353 21.587c-.775-.217-1.385-.548-1.889-1.052C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2M5.5 8.757c0 1.785 1.117 3.868 2.86 4.613c.406.173.874.173 1.28 0c1.743-.745 2.86-2.828 2.86-4.613C12.5 6.958 10.933 5.5 9 5.5S5.5 6.958 5.5 8.757"
-          clip-rule="evenodd"
-        />
-        <path fill="currentColor" d="M10.5 9a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0" />
-      </svg>
-      <span class="hidden lg:block">Region</span>
+      <img src="{{ route.icon }}" alt="{{ route.label }} Icon" class="h-6 w-6 inline-block" />
+      <span class="hidden lg:block">{{ route.label }}</span>
     </a>
   </li>
-  <li>
-    <a
-      [routerLink]="[paths.country]"
-      [queryParams]="{ q: searchService.navigationHistory.get('name') || null }"
-      [routerLinkActive]="['bg-primary/80', 'font-bold', 'text-black']"
-      class="tooltip"
-      data-tip="Country"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path
-          fill="currentColor"
-          d="M5.75 1a.75.75 0 0 1 .75.75V3.6l1.72-.344a8.7 8.7 0 0 1 4.925.452l.413.165a7.3 7.3 0 0 0 4.482.304a.73.73 0 0 1 .803 1.084l-1.278 2.131c-.342.57-.513.854-.553 1.163q-.025.195 0 .39c.04.309.211.594.553 1.163l1.56 2.6a.9.9 0 0 1-.553 1.336l-.1.025a8.68 8.68 0 0 1-5.327-.361a8.7 8.7 0 0 0-4.924-.452L6.5 13.6v8.15a.75.75 0 0 1-1.5 0v-20A.75.75 0 0 1 5.75 1"
-        />
-      </svg>
-      <span class="hidden lg:block">Country</span>
-    </a>
-  </li>
-  <li>
-    <a
-      [routerLink]="[paths.capital]"
-      [queryParams]="{ q: searchService.navigationHistory.get('capital') || null }"
-      [routerLinkActive]="['bg-primary/80', 'font-bold', 'text-black']"
-      class="tooltip"
-      data-tip="Capital"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path
-          fill="currentColor"
-          fill-rule="evenodd"
-          d="M7 1.25a.75.75 0 0 1 .75.75v1.75h.295c.433 0 .83 0 1.152.043c.356.048.731.16 1.04.47s.422.684.47 1.04c.043.323.043.72.043 1.152v1.427q.1.079.194.173c.456.456.642 1.023.726 1.65c.058.434.074.95.078 1.545h.502V7.71c0-1.258 0-2.287.116-3.072c.12-.814.387-1.54 1.068-2.012c.68-.472 1.455-.467 2.259-.294c.775.168 1.739.529 2.917.97l.096.037c.595.223 1.1.412 1.495.613c.42.214.785.472 1.06.868c.274.396.388.827.44 1.296c.049.441.049.98.049 1.616V21.25H22a.75.75 0 0 1 0 1.5H2a.75.75 0 0 1 0-1.5h.25v-9.302c0-.899 0-1.648.08-2.242c.084-.628.27-1.195.725-1.65q.095-.095.195-.174V6.455c0-.433 0-.83.043-1.152c.048-.356.16-.731.47-1.04s.684-.422 1.04-.47c.323-.043.72-.043 1.152-.043h.295V2A.75.75 0 0 1 7 1.25M4.75 7.324c.588-.074 1.322-.074 2.198-.074h.104c.876 0 1.61 0 2.198.074V6.5c0-.493-.002-.787-.03-.997a.7.7 0 0 0-.042-.177l-.001-.003l-.003-.001l-.01-.005a.7.7 0 0 0-.167-.037c-.21-.028-.504-.03-.997-.03H6c-.493 0-.787.002-.997.03a.7.7 0 0 0-.177.042l-.003.001l-.001.003l-.005.01a.7.7 0 0 0-.037.167c-.028.21-.03.504-.03.997zm-1 13.926h2.5v-5.302c0-.899 0-1.648.08-2.242c.084-.628.27-1.195.725-1.65c.456-.456 1.023-.642 1.65-.726c.434-.058.948-.074 1.543-.078c-.004-.57-.018-1-.064-1.347c-.063-.461-.17-.659-.3-.789s-.328-.237-.79-.3C8.613 8.753 7.965 8.75 7 8.75s-1.612.002-2.095.067c-.461.062-.659.169-.789.3s-.237.327-.3.788c-.064.483-.066 1.131-.066 2.095zm4 0h8.5V16c0-.964-.002-1.612-.067-2.095c-.062-.461-.169-.659-.3-.789s-.327-.237-.788-.3c-.483-.064-1.131-.066-2.095-.066h-2c-.964 0-1.612.002-2.095.066c-.461.063-.659.17-.789.3s-.237.328-.3.79c-.064.482-.066 1.13-.066 2.094zm10 0h2.5V7.772c0-.687-.001-1.141-.04-1.49c-.037-.33-.1-.49-.183-.608c-.081-.118-.21-.235-.505-.385c-.313-.158-.737-.319-1.38-.56c-1.251-.469-2.11-.79-2.765-.93c-.64-.138-.909-.065-1.089.06c-.18.124-.343.351-.438.998c-.098.662-.1 1.58-.1 2.915v3.48c.595.004 1.111.02 1.544.078c.628.084 1.195.27 1.65.726c.456.455.642 1.022.726 1.65c.08.594.08 1.344.08 2.242zM9.25 15a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75m0 3a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75"
-          clip-rule="evenodd"
-        />
-      </svg>
-      <span class="hidden lg:block">Capital</span>
-    </a>
-  </li>
-  }@else if(isDetailsPage()) {
+  } }@else if(isDetailsPage()) {
   <li>
     <button (click)="goBack()" type="button" class="bg-primary/20 text-white">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

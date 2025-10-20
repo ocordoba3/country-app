@@ -25,32 +25,35 @@
   <table class="table">
     <thead class="sticky top-0 bg-gray-800 z-[2]">
       <tr>
-        <th class="hidden md:block"></th>
+        <th></th>
         <th>Country</th>
         <th>Capital</th>
         <th>Region</th>
         <th>Subregion</th>
-        <th></th>
       </tr>
     </thead>
 
     <tbody>
       @for (country of countries(); track country.name) {
       <tr>
-        <th class="hidden md:block">
-          <div class="tooltip tooltip-right z-[1]" data-tip="Mark as favorite">
-            <button class="btn">
+        <th>
+          <div class="tooltip tooltip-right z-[1]" data-tip="Go to Details">
+            <a
+              [routerLink]="['/', paths.search, paths.code, country.code]"
+              class="btn btn-ghost btn-xs text-primary hover:text-primary/80"
+            >
+              <span class="block md:hidden">Details</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path
                   fill="none"
-                  stroke="currentColor"
+                  stroke="#fff"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m12 21l-8.8-8.3A5.6 5.6 0 1 1 12 6a5.6 5.6 0 1 1 8.9 6.6z"
+                  stroke-width="1.5"
+                  d="m19.5 12l-5-5m5 5l-5 5m5-5h-10c-1.667 0-5 1-5 5"
                 />
               </svg>
-            </button>
+            </a>
           </div>
         </th>
         <td>
@@ -73,20 +76,6 @@
           {{ country.region }}
         </td>
         <td>{{ country.subregion }}</td>
-        <th>
-          <a
-            [routerLink]="['/', paths.search, paths.code, country.code]"
-            class="btn btn-ghost btn-xs text-primary hover:text-primary/80"
-          >
-            Details
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M9.075 13H3q-.425 0-.712-.288T2 12t.288-.712T3 11h6.075L6.75 8.65q-.275-.275-.288-.687t.288-.713q.275-.275.7-.275t.7.275l4.05 4.05q.3.3.3.7t-.3.7l-4.05 4.05q-.275.275-.687.288t-.713-.288q-.275-.275-.275-.7t.275-.7zM14 17q-.425 0-.712-.288T13 16t.288-.712T14 15h7q.425 0 .713.288T22 16t-.288.713T21 17zm0-8q-.425 0-.712-.288T13 8t.288-.712T14 7h7q.425 0 .713.288T22 8t-.288.713T21 9zm3 4q-.425 0-.712-.288T16 12t.288-.712T17 11h4q.425 0 .713.288T22 12t-.288.713T21 13z"
-              />
-            </svg>
-          </a>
-        </th>
       </tr>
       }
     </tbody>
