@@ -14,4 +14,7 @@ export interface Country {
   region: string;
   subregion: string;
   map: string;
+  latitude: number;
+  longitude: number;
+  borders: string[];
 }

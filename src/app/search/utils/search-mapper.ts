@@ -20,5 +20,8 @@ export function mapCountriesResponse(countries: CountryResp[]): Country[] {
     map:
       country.maps.googleMaps ||
       'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(country.name.common),
+    latitude: country.latlng[0],
+    longitude: country.latlng[1],
+    borders: country.borders || [],
   }));
 }

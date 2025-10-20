@@ -1,13 +1,18 @@
-<article class="w-full h-fit grid mt-8">
-  <h1 class="card-title text-4xl px-6 mb-4">
+<article class="w-full h-fit grid mt-8 mb-8 md:mb-0">
+  <h1 class="card-title text-2xl md:text-4xl px-4 md:px-6 mb-4 flex flex-wrap md:flex-nowrap">
     {{ country()?.name }} <span class="badge badge-info">{{ country()?.code }}</span>
   </h1>
-  <h2 class="card-title text-xl px-6 mb-8 flex items-center gap-2">
+  <h2 class="card-title text-lg md:text-xl px-4 md:px-6 mb-4 flex items-center gap-2">
     Capital:
     <span class="badge badge-soft badge-xl"> {{ country()?.capital | titlecase }}</span>
   </h2>
+  <h2 class="italic text-sm md:text-base px-4 md:px-6 mb-8 flex items-center gap-2">
+    Has
+    {{ country()?.borders?.length || 0 | i18nPlural : bordersMap }} @if(country()?.borders?.length)
+    { ({{ country()?.borders?.join(', ') }}) }
+  </h2>
   <!-- Stats -->
-  <div class="stats shadow grid md:grid-cols-3">
+  <div class="stats shadow grid grid-cols-1 md:grid-cols-3 !grid-flow-row !md:grid-flow-col">
     <div class="stat">
       <div class="stat-figure text-secondary">
         <svg
@@ -73,7 +78,7 @@
     </div>
   </div>
 
-  <div class="stats shadow grid md:grid-cols-2">
+  <div class="stats shadow grid grid-cols-1 md:grid-cols-2 !grid-flow-row !md:grid-flow-col">
     <div class="stat">
       <div class="stat-figure text-secondary">
         <svg
@@ -129,15 +134,10 @@
     </div>
   </div>
   <!-- Flag and details -->
-  <div class="bg-base-100 w-full flex flex-wrap justify-between mt-8 px-8">
-    <div class="card w-full mt-4 grid grid-cols-2 gap-16 h-fit">
+  <div class="bg-base-100 w-full flex flex-wrap justify-between px-4 md:px-8">
+    <div class="card w-full grid grid-cols-1 md:grid-cols-2 gap-16 h-fit">
       <div>
-        @if(country()?.flags?.description){
-        <p class="text-justify">
-          {{ country()?.flags?.description }}
-        </p>
-        }
-        <div class="rounded-xl grid grid-cols-2 gap-8 mt-6 flex-wrap mb-4">
+        <div class="rounded-xl grid grid-cols-2 gap-8 mt-8 flex-wrap mb-4">
           <h3 class="card-title text-xl">Flag</h3>
           @if(country()?.coatOfArms) {
           <h3 class="card-title text-xl">Coat of Arms</h3>
@@ -149,6 +149,11 @@
           <img [src]="country()?.coatOfArms" alt="Country Coat of Arms" class="w-full" />
           }
         </div>
+        @if(country()?.flags?.description){
+        <p class="text-justify mt-4">
+          {{ country()?.flags?.description }}
+        </p>
+        }
       </div>
 
       <div class="card w-full h-[400px] bg-secondary/5 flex items-center justify-center">
@@ -179,3 +184,29 @@
     </div>
   </div>
 </article>
+
+<div class="fab">
+  <!-- a focusable div with tabindex is necessary to work on all browsers. role="button" is necessary for accessibility -->
+  <div tabindex="0" role="button" class="btn btn-lg btn-circle btn-info">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <g fill="none">
+        <circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="1.5" />
+        <path stroke="#fff" stroke-linecap="round" stroke-width="1.5" d="M12 17v-6" />
+        <circle cx="1" cy="1" r="1" fill="#fff" transform="matrix(1 0 0 -1 11 9)" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- close button should not be focusable so it can close the FAB when clicked. It's just a visual placeholder -->
+  <div class="fab-close"><span class="btn btn-circle btn-lg btn-error">✕</span></div>
+
+  <!-- buttons that show up when FAB is open -->
+  <div class="bg-black/80 px-2 rounded-lg">
+    Latitude
+    <button class="btn btn-lg btn-circle">{{ country()?.latitude | number : '1.0-2' }}°</button>
+  </div>
+  <div class="bg-black/80 px-2 rounded-lg">
+    Longitude
+    <button class="btn btn-lg btn-circle">{{ country()?.longitude | number : '1.0-2' }}°</button>
+  </div>
+</div>
