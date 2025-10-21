@@ -23,5 +23,6 @@ export function mapCountriesResponse(countries: CountryResp[]): Country[] {
     latitude: country.latlng[0],
     longitude: country.latlng[1],
     borders: country.borders || [],
+    independent: country.independent || false,
   }));
 }

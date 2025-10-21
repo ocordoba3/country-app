@@ -17,4 +17,5 @@ export interface Country {
   latitude: number;
   longitude: number;
   borders: string[];
+  independent: boolean;
 }

@@ -22,26 +22,41 @@
 <!--  -->
 @if(!isLoading() && countries().length > 0){
 <article class="overflow-x-auto h-[70vh] overflow-y-auto">
-  <table class="table">
+  <table class="table text-center">
     <thead class="sticky top-0 bg-gray-800 z-[2]">
       <tr>
         <th></th>
-        <th>Country</th>
+        <th
+          class="flex flex-nowrap justify-between text-start cursor-pointer hover:bg-gray-900"
+          (click)="toggleSort('name')"
+          [class.bg-gray-900]="sortKey() === 'name'"
+        >
+          Country @if(sortKey() === 'name') {
+          <app-sort-buttons [sortOrder]="sortOrder()"></app-sort-buttons>
+          }
+        </th>
         <th>Capital</th>
+        <th
+          class="flex flex-nowrap justify-between cursor-pointer hover:bg-gray-900"
+          (click)="toggleSort('population')"
+          [class.bg-gray-900]="sortKey() === 'population'"
+        >
+          Population @if(sortKey() === 'population') {
+          <app-sort-buttons [sortOrder]="sortOrder()"></app-sort-buttons>
+          }
+        </th>
         <th>Region</th>
         <th>Subregion</th>
+        <th>Independent</th>
       </tr>
     </thead>
 
     <tbody>
-      @for (country of countries(); track country.name) {
+      @for (country of countries() | sortPipe:sortKey():sortOrder(); track country.name) {
       <tr>
         <th>
           <div class="tooltip tooltip-right z-[1]" data-tip="Go to Details">
-            <a
-              [routerLink]="['/', paths.search, paths.code, country.code]"
-              class="btn btn-primary btn-xs text-white"
-            >
+            <a [routerLink]="['/', paths.search, paths.code, country.code]" class="text-primary">
               <span class="block md:hidden">Details</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path
@@ -63,7 +78,7 @@
                 <img [src]="country.flags.svg" [alt]="country.name" />
               </div>
             </div>
-            <div>
+            <div class="text-start">
               <div class="font-bold">{{ country.name | titlecase }}</div>
               <div class="text-sm opacity-50">{{ country.code }}</div>
             </div>
@@ -73,9 +88,21 @@
           {{ country.capital }}
         </td>
         <td>
+          {{ country.population | number }}
+        </td>
+        <td>
           {{ country.region }}
         </td>
         <td>{{ country.subregion }}</td>
+        <td>
+          <span
+            class="btn btn-sm"
+            [class.btn-primary]="country.independent"
+            [class.btn-error]="!country.independent"
+          >
+            {{ country.independent | booleanPipe }}
+          </span>
+        </td>
       </tr>
       }
     </tbody>
